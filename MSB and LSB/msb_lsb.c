@@ -1,95 +1,86 @@
 #include <stdio.h>
 #include <string.h>
 
-// Decimal to binary conversion
-int convert_to_Binary(int decimal_number){
-    if (decimal_number == 0) {return 0;}
+/**
+ * Converts the decimal integer into binary
+ * @param a, requires that a is a positive integer 
+ * @return the binary representation of a
+*/
+int decimal_to_binary(int a);
+
+/**
+ * Finds the position of the most significant bit
+ * @param a, requires that a is a positive non-zero integer 
+ * @return the position of the most significant bit that is set to 1
+*/
+int msb(int a);
+
+/**
+ * Finds the position of the least significant bit
+ * @param a, requires that a is a positive non-zero integer 
+ * @return the position of the least significant bit that is set to 1
+*/
+int lsb(int a);
+
+/*Testing Partitions: 
+ * Partition 1: The integer is a small positive non-zero integer
+ * Partition 3: The integer is a large positive non-zero integer
+ */
+
+int msb_lsb_test(int expected, int actual){
+    int passed = 0; 
+    if(expected == actual){
+        passed = 1;
+    }
+}
+
+int main(){
+    int num;
+    printf("Please enter a positive non-zero integer to get the distance between the first and last bits set to 1.\n");
+    scanf("%d", &num);
+
+    int binary = decimal_to_binary(num);
+    int _msb = msb(binary);
+    int _lsb = lsb(binary);
+    printf("%d", (_msb - _lsb));
+
+    return 0;
+}
+
+//converts a decimal integer into binary
+int decimal_to_binary(int a){
+    if (a==0){return 0;}
     else{
-        return (decimal_number % 2 + 10 *convert_to_Binary(decimal_number / 2));//return recursion function it self here and then back to return main
+        return (a%2 + 10*decimal_to_binary(a/2));
+    }
 }
-}
 
+//Finds the position of the most significant bit
+int msb(int a){
+    
+    char s[100];
+    sprintf(s, "%d", a);
 
-int call_lsb(int s) {
+    unsigned int position = strlen(s);
 
-    char str[50];//Declare String
-
-    unsigned int i,j=0;//declare variable here
-
-    sprintf(str, "%d", s); //convert integer to string
-
-    for(i=strlen(str)-1;0<=i;i--)//Operation for find out lsb
-
-{
-
-if(str[i]=='1') {
-    break;
+    for (unsigned int i=0; i<strlen(s); i++){
+        if (s[i] == '1') {break;}
+        position--;
     }
 
-j++;
-
+    return (position-1);
 }
 
-return j;
+//Finds the position of the least significant bit
+int lsb(int a){
+    char s[100];
+    sprintf(s, "%d", a);
 
-}
+    unsigned int position = 0;
 
-int call_msb(int s)
-
-{
-
-char str[50];//Declare String
-
-unsigned int i,j;//declare variable here
-
-sprintf(str, "%d", s); //convert integer to string
-
-j=strlen(str);
-
-for(i=0;i<strlen(str);i++)//Operation for find out lsb
-
-{
-
-if(str[i]=='1')
-
-{
-
-break;
-
-}
-
-j--;
-
-}
-
-return j-1;
-
-}
-
-int main()
-
-{
-
-int decimal_number,converted,lsb,msb;
-
-printf("Enter the number ::");//Input your number here message
-
-scanf("%d",&decimal_number);//store it in variable
-
-converted= convert_to_Binary(decimal_number);//converting it with recursion function call here
-
-printf("Binary of the following number is :%d \n",converted);//Print it
-
-lsb=call_lsb(converted);//cal lsb function from here
-
-msb=call_msb(converted);//call msb function from here
-
-printf("LSB is : %d \n",lsb);//print lsb here
-
-printf("MSB is : %d \n",msb);//print msb here
-
-printf("The distance between lsb and msb is : %d",msb-lsb );//print distance here
-
-return 0;
-
+    for (unsigned int i=strlen(s)-1; 0<=i; i--){
+        if (s[i] == '1') {break;}
+        position++;
+    }
+    return position;
 }

@@ -1,67 +1,91 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>   
-//declare function prototypes
-void merge(char **, int, char **, int, char **);
+#include <stdlib.h>
+
+/**
+ * Merges the elements of two arrays
+ * @param arr1, requires that the array is sorted
+ * @param arr2, requires that the array is sorted
+ * @param size1, requires that it is a positive integer indicating the length of arr1
+ * @param size2, requires that it is a positive integer indicating the length of arr2
+ * @return the strings of the arrays in sorted order
+ * 
+ * Testing Partitions: 
+ * Case 1: All the elements of arr1 are larger than the elements of arr2
+ * Case 2: All the elements of arr1 are smaller than the elements of arr2
+ * Case 3: Some elements of arr1 are larger than the elements of arr2
+ * Case 4: Some elements of arr1 are smaller than the elements of arr2
+ */
+
+void merge(char **arr1, int size1, char **arr2, int size2, char **merged);
+
+int my_pointers_test(int expected, int actual){
+    int passed = 0; 
+    if(expected == actual){
+        passed = 1;
+    }
+}
+
 int main(){
-	//declare variables
-	char **arr1=NULL, **arr2=NULL, **result=NULL;
-	int num1, num2;
-	//get size of arrays
-	printf("Enter number of strings in array 1: ");
-	scanf("%d", &num1);
-	printf("Enter number of strings in array 2: ");
-	scanf("%d", &num2);
-	//allocate arrays
-	arr1 = (char**)malloc(sizeof(char*)*num1);
-	arr2 = (char**)malloc(sizeof(char*)*num2);
-	result = (char**)malloc(sizeof(char*)*(num1+num2));
-	//get input for arrays
-	printf("Enter array 1: ");
-	for(int i=0; i<num1; i++){
+
+    char **arr1=NULL, **arr2=NULL, **merged=NULL;
+	int size1, size2;
+
+    printf("Enter the number of strings in the first array: ");
+    scanf("%d", &size1);
+    arr1 = (char**)malloc(sizeof(char*)*size1);
+    printf("Enter the elements of array 1: ");
+	for(int i=0; i<size1; i++){
 		arr1[i] = (char*)malloc(sizeof(char)*50);
 		scanf("%s", arr1[i]);
 	}
-	printf("Enter array 2: ");
-	for(int i=0; i<num2; i++){
+
+    printf("Enter the number of strings in the second array: ");
+    scanf("%d", &size2);
+    arr2 = (char**)malloc(sizeof(char*)*size2);
+    printf("Enter the elements of array 1: ");
+	for(int i=0; i<size2; i++){
 		arr2[i] = (char*)malloc(sizeof(char)*50);
 		scanf("%s", arr2[i]);
 	}
-	//call merge function
-	merge(arr1, num1, arr2, num2, result);
-	//display result
-	printf("Result:\n");
-	for(int i=0; i<num1+num2; i++){
-		printf("%s\n", result[i]);
+
+    //allocating the merged array
+    merged = (char**)malloc(sizeof(char*)*(size1+size2));
+
+    merge(arr1, size1, arr2, size2, merged);
+    printf("The new array:\n");
+	for(int i=0; i<size1+size2; i++){
+		printf("%s\n", merged[i]);
 	}
+
 	return 0;
 }
-//define merge function
-void merge(char **arr1, int num1, char **arr2, int num2, char **result){
-	//declare variables
-	int i=0, j=0, k=0;
-	//merge arrays
-	while(i<num1 && j<num2){
+
+void merge(char **arr1, int size1, char **arr2, int size2, char **merged){
+
+    int i=0, j=0, k=0;
+    //merge the two arrays (enough procedure if the arrays are of the same length)
+    while(i<size1 && j<size2){
 		if(arr1[i] < arr2[j]){
-			result[k] = arr1[i];
+			merged[k] = arr1[i];
 			i++;
 		}
 		else{
-			result[k] = arr2[j];
+			merged[k] = arr2[j];
 			j++;
 		}
 		k++;
 	}
-	//add remaining elements
-	while(i<num1){
-		result[k] = arr1[i];
+
+    //If the arrays have different lengths, we need to add the remaining elements
+    while(i<size1){
+		merged[k] = arr1[i];
 		i++;
 		k++;
 	}
-	while(j<num2){
-		result[k] = arr2[j];
+	while(j<size2){
+		merged[k] = arr2[j];
 		j++;
 		k++;
 	}
 }
-

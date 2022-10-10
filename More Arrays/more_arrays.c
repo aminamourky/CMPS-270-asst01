@@ -2,32 +2,49 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Note second dimension of array must be fixed in C; we assume every inner array has 3 strings 
-// and there are nStrings arrays of these 
-char **concat (char *input [][3], int nStrings) {
-    char **answer = malloc (sizeof (char *) * nStrings);   // allocate space for the string array 
-    for (int i = 0; i < nStrings; i++) {
-        answer [i] = malloc (sizeof (char) * 100);        // allocate space for the concatenated string 
-        int pos = 0;
-        for (int j = 0; j < 3; j++) {
-            strcpy (answer [i] + pos, input [i][j]);      // copy string to correct position in array 
-            pos = strlen (answer [i]);
-            strcpy (answer [i] + pos, " ");               // add a space at the end 
-            pos++;
-        }
-        answer [i][pos - 1] = '\0'; // at the end of concatenated string, there will be a space, put \0 there 
+/**
+ * Concatenates the elements of two arrays
+ * @param arr, requires that is a 2D array of integers 
+ * @return display each index with its corresponding value in the array
+ * 
+ * Testing Partitions: 
+ * Case 1: the two elements within the 2D array are of the same length
+ * Case 2: the first element within the 2D array is larger than the second element
+ * Case 3: the first element within the 2D array is smaller than the second element
+*/
+
+char **concat(char *arr [][3], int num);
+
+int concat_test(int expected, int actual){
+    int passed = 0; 
+    if(expected == actual){
+        passed = 1;
     }
-    return answer;
 }
+
+
 int main()
 {
-    // Test code 
     char *arr [][3] = {{"I", "LOVE", "CODING"}, {"THIS", "IS", "SPARTA"}};
     char **ans = concat (arr, 2);
     printf ("\"%s\",\"%s\"\n", ans [0], ans [1]);
-    free (ans [0]);                 // Free up allocated space for strings 
-    free (ans [1]);
-    free (ans);                     // Free up the array itself 
+    free (ans);                     
     return 0;
+}
+
+char **concat (char *arr [][3], int num) {
+    char **new_arr = malloc (sizeof (char *) * num);   
+    for (int i = 0; i < num; i++) {
+        new_arr [i] = malloc (sizeof (char) * 100);        
+        int position = 0;
+        for (int j = 0; j < 3; j++) {
+            strcpy (new_arr [i] + position, arr [i][j]);      
+            position = strlen (new_arr [i]);
+            strcpy (new_arr [i] + position, " ");                
+            position++;
+        }
+        new_arr [i][position - 1] = '\0'; 
+    }
+    return new_arr;
 }
 
