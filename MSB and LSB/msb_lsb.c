@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 // Decimal to binary conversion
 int convert_to_Binary(int decimal_number){
