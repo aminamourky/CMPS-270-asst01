@@ -42,7 +42,7 @@ void merge(char **arr1, int num1, char **arr2, int num2, char **result){
 	int i=0, j=0, k=0;
 	//merge arrays
 	while(i<num1 && j<num2){
-		if(strcmp(arr1[i], arr2[j])<0){
+		if(arr1[i] < arr2[j]){
 			result[k] = arr1[i];
 			i++;
 		}

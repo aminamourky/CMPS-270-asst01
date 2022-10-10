@@ -13,7 +13,6 @@ int main(){
     int binary = decimal_to_binary(num);
     int _msb = msb(binary);
     int _lsb = lsb(binary);
-
     printf("%d", (_msb - _lsb));
     return 0;
 }
@@ -27,13 +26,12 @@ int decimal_to_binary(int a){
 
 int msb(int a){
     
-    int size = 100;
-    char s[size];
+    char s[100];
     sprintf(s, "%d", a);
 
-    int position = strlen(s);
+    unsigned int position = strlen(s);
 
-    for (int i=0; i<size; i++){
+    for (unsigned int i=0; i<strlen(s); i++){
         if (s[i] == '1') {break;}
         position--;
     }
@@ -42,14 +40,14 @@ int msb(int a){
     return (position-1);
 }
 
+
 int lsb(int a){
-    int size = 100;
-    char s[size];
+    char s[100];
     sprintf(s, "%d", a);
 
-    int position = 0;
+    unsigned int position = 0;
 
-    for (int i=size-1; i>=0; i--){
+    for (unsigned int i=strlen(s)-1; 0<=i; i--){
         if (s[i] == '1') {break;}
 
         position++;

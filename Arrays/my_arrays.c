@@ -42,7 +42,7 @@ void bubbleSort(int arr[]) {
 
 float median(int arr[]) {
     if(SIZE%2==0)
-        return (arr[SIZE/2-1] + arr[SIZE/2])/2;
+        return (arr[SIZE/2] + arr[SIZE/2-1])/2;
     else 
         return arr[(SIZE-1)/2];
 }
@@ -72,7 +72,7 @@ int isSorted(int arr[], int n) {
 }
 
 int main() {
-    int arr[SIZE] = {1,1,1,1,1,2,2,2,3,3};
+    int arr[SIZE] = {1,1,3,2,1,2,1,2,3,3};
     
     printArray(arr);
     

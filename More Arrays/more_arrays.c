@@ -24,11 +24,10 @@ int main()
     // Test code 
     char *arr [][3] = {{"I", "LOVE", "CODING"}, {"THIS", "IS", "SPARTA"}};
     char **ans = concat (arr, 2);
-    printf ("|%s|\n|%s|\n", ans [0], ans [1]);
+    printf ("\"%s\",\"%s\"\n", ans [0], ans [1]);
     free (ans [0]);                 // Free up allocated space for strings 
     free (ans [1]);
     free (ans);                     // Free up the array itself 
-
     return 0;
 }
 
